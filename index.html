@@ -15,174 +15,160 @@
             min-height: 100vh;
             background: linear-gradient(135deg, #ff9a9e, #fad0c4, #ffd1ff);
             font-family: 'Arial', sans-serif;
-            overflow: hidden;
         }
 
         .book-container {
             perspective: 2000px;
-            padding: 20px;
+            position: relative;
+            width: 320px;
+            height: 450px;
+            margin: 50px auto;
         }
 
         .book {
             position: relative;
-            width: 320px;
-            height: 450px;
+            width: 100%;
+            height: 100%;
             transform-style: preserve-3d;
-            transition: transform 0.5s ease;
         }
 
         .page {
             position: absolute;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 15px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-            backface-visibility: hidden;
-            transform-origin: left;
-            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            transform-origin: left center;
+            transform-style: preserve-3d;
+            transition: transform 0.6s ease-in-out;
             cursor: pointer;
-            overflow: hidden;
+            left: 0;
         }
 
-        .page::before {
-            content: '';
+        .page-content {
             position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1));
-            pointer-events: none;
+            padding: 20px;
+            box-sizing: border-box;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
         }
 
-        .page:nth-child(1) { z-index: 3; }
-        .page:nth-child(2) { z-index: 2; }
-        .page:nth-child(3) { z-index: 1; }
+        .page-back {
+            backface-visibility: hidden;
+            background-image: url('path-to-your-image.jpg');
+            /* Đường dẫn đến ảnh */
+            background-size: cover;
+            background-position: center;
+            border-radius: 10px;
+            transform: rotateY(180deg);
+        }
+
 
         .page.flipped {
             transform: rotateY(-180deg);
         }
 
-        .page-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100%;
-            padding: 30px;
-            text-align: center;
-            box-sizing: border-box;
-            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,192,203,0.1));
+        /* Z-index cho các trang */
+        .page:nth-child(1) {
+            z-index: 3;
+        }
+
+        .page:nth-child(2) {
+            z-index: 2;
+        }
+
+        .page:nth-child(3) {
+            z-index: 1;
         }
 
         h2 {
             color: #ff4081;
-            margin-bottom: 25px;
-            font-size: 28px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-            font-weight: bold;
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
         }
 
         .heart {
-            font-size: 60px;
-            margin: 25px 0;
+            font-size: 48px;
+            margin: 20px 0;
             animation: pulse 1.5s infinite;
-            position: relative;
-        }
-
-        .heart::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            filter: blur(5px);
-            opacity: 0.5;
         }
 
         p {
-            color: #444;
-            font-size: 18px;
-            line-height: 1.6;
-            margin: 15px 0;
-            text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.05);
+            color: #333;
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 10px 0;
+            text-align: center;
         }
 
         .signature {
             color: #ff4081;
             font-style: italic;
-            font-size: 22px;
-            margin-top: 30px;
-            font-weight: bold;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            font-size: 20px;
+            margin-top: 20px;
         }
 
-        .navigation-hint {
+        .controls {
             position: absolute;
-            bottom: 20px;
-            width: 100%;
-            text-align: center;
-            font-size: 14px;
-            color: #666;
-        }
-
-        .navigation-hint span {
-            margin: 0 10px;
-        }
-
-        .navigation-controls {
-            position: absolute;
-            bottom: 15px;
-            width: 100%;
+            bottom: -50px;
+            left: 0;
+            right: 0;
             display: flex;
-            justify-content: space-between;
-            padding: 0 20px;
-            box-sizing: border-box;
-            z-index: 10;
+            justify-content: center;
+            gap: 20px;
         }
 
         .nav-button {
-            background: rgba(255, 64, 129, 0.8);
+            padding: 8px 16px;
+            background: #ff4081;
             color: white;
             border: none;
-            padding: 8px 15px;
             border-radius: 20px;
             cursor: pointer;
             font-size: 14px;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         .nav-button:hover {
-            background: rgba(255, 64, 129, 1);
+            background: #f50057;
             transform: scale(1.05);
         }
 
         .nav-button:disabled {
-            background: rgba(200, 200, 200, 0.8);
+            background: #ccc;
             cursor: not-allowed;
+            transform: none;
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.25); opacity: 0.8; }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
 
-        .sparkle {
+        .page-number {
             position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background-color: white;
-            animation: sparkle 2s infinite;
-        }
-
-        @keyframes sparkle {
-            0% { transform: scale(0); opacity: 0; }
-            50% { transform: scale(1); opacity: 1; }
-            100% { transform: scale(0); opacity: 0; }
+            bottom: 10px;
+            right: 10px;
+            font-size: 12px;
+            color: #666;
         }
     </style>
 </head>
@@ -190,70 +176,46 @@
 <body>
     <div class="book-container">
         <div class="book">
-            <!-- Trang 1 -->
             <div class="page">
                 <div class="page-content">
-                    <h2>💖 Gửi Tặng Người Yêu Của Anh 💖</h2>
+                    <h2>💖 Gửi Tặng Người Yêu Của Anh</h2>
                     <div class="heart">💝</div>
                     <p>Chúc mừng sinh nhật em yêu!</p>
                     <p>Mỗi khoảnh khắc bên em là một niềm hạnh phúc vô bờ.</p>
-                </div>
-                <div class="navigation-hint">
-                    <span>Click để xem trang tiếp theo ></span>
+                    <div class="page-number">1/3</div>
                 </div>
             </div>
 
-            <!-- Trang 2 -->
             <div class="page">
                 <div class="page-content">
-                    <h2>✨ Điều Anh Muốn Nói... ✨</h2>
+                    <h2>✨ Điều Anh Muốn Nói...</h2>
                     <div class="heart">💖</div>
                     <p>Em là món quà tuyệt vời nhất mà cuộc sống đã mang đến cho anh.</p>
                     <p>Cảm ơn em vì đã luôn ở bên và làm cho cuộc sống của anh trở nên đẹp đẽ hơn.</p>
-                    <p>Mong rằng chúng ta sẽ cùng nhau đi thật xa...</p>
-                </div>
-                <div class="navigation-hint">
-                    <span>< Trang trước</span>
-                    <span>Trang sau ></span>
+                    <div class="page-number">2/3</div>
                 </div>
             </div>
 
-            <!-- Trang 3 -->
             <div class="page">
                 <div class="page-content">
-                    <h2>🌟 Lời Hứa Của Anh 🌟</h2>
+                    <h2>🌟 Lời Hứa Của Anh</h2>
                     <div class="heart">💕</div>
                     <p>Anh hứa sẽ luôn yêu thương và chăm sóc em thật nhiều.</p>
                     <p>Anh sẽ luôn ở bên cạnh em, cùng em vượt qua mọi khó khăn.</p>
                     <p>Happy Birthday My Love!</p>
                     <div class="signature">Yêu Em Nhiều ❤️</div>
-                </div>
-                <div class="navigation-hint">
-                    <span>< Trang trước</span>
+                    <div class="page-number">3/3</div>
                 </div>
             </div>
         </div>
 
-        <!-- Nút điều hướng -->
-        <div class="navigation-controls">
-            <button class="nav-button" id="prevBtn" disabled>⬅️ Trang trước</button>
-            <button class="nav-button" id="nextBtn">Trang sau ➡️</button>
+        <div class="controls">
+            <button class="nav-button" id="prevBtn" disabled>◀️ Trang trước</button>
+            <button class="nav-button" id="nextBtn">Trang sau ▶️</button>
         </div>
     </div>
 
     <script>
-        function createSparkles() {
-            const container = document.querySelector('.book-container');
-            for (let i = 0; i < 30; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = Math.random() * 100 + '%';
-                sparkle.style.top = Math.random() * 100 + '%';
-                sparkle.style.animationDelay = Math.random() * 2 + 's';
-                container.appendChild(sparkle);
-            }
-        }
-
         const pages = document.querySelectorAll('.page');
         const prevBtn = document.getElementById('prevBtn');
         const nextBtn = document.getElementById('nextBtn');
@@ -264,47 +226,32 @@
             nextBtn.disabled = currentPage === pages.length - 1;
         }
 
-        function flipToPage(pageIndex) {
-            if (pageIndex < 0 || pageIndex >= pages.length) return;
-
-            // Lật trang tiến
-            if (pageIndex > currentPage) {
-                for (let i = currentPage; i < pageIndex; i++) {
-                    pages[i].classList.add('flipped');
+        function flipPage(direction) {
+            const newPage = currentPage + direction;
+            if (newPage >= 0 && newPage < pages.length) {
+                if (direction > 0) {
+                    pages[currentPage].classList.add('flipped');
+                } else {
+                    pages[currentPage - 1].classList.remove('flipped');
                 }
+                currentPage = newPage;
+                updateButtons();
             }
-            // Lật trang lùi
-            else if (pageIndex < currentPage) {
-                for (let i = currentPage - 1; i >= pageIndex; i--) {
-                    pages[i].classList.remove('flipped');
-                }
-            }
-
-            // Cập nhật z-index
-            pages.forEach((page, index) => {
-                page.style.zIndex = pages.length - Math.abs(pageIndex - index);
-            });
-
-            currentPage = pageIndex;
-            updateButtons();
         }
 
-        // Xử lý sự kiện click trang
+        nextBtn.addEventListener('click', () => flipPage(1));
+        prevBtn.addEventListener('click', () => flipPage(-1));
+
         pages.forEach((page, index) => {
             page.addEventListener('click', () => {
                 if (index === currentPage && currentPage < pages.length - 1) {
-                    flipToPage(currentPage + 1);
+                    flipPage(1);
                 }
             });
         });
 
-        // Xử lý sự kiện click nút
-        prevBtn.addEventListener('click', () => flipToPage(currentPage - 1));
-        nextBtn.addEventListener('click', () => flipToPage(currentPage + 1));
-
-        // Khởi tạo hiệu ứng lấp lánh
-        createSparkles();
         updateButtons();
     </script>
 </body>
+
 </html>
